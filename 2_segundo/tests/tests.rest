@@ -1,0 +1,15 @@
+### Teste da rota principal
+GET http://localhost:40000/
+content-type: application/json
+
+### Teste GET com parâmetro
+GET http://localhost:40000/helloUserGet/John%20Doe
+content-type: application/json
+
+### Teste POST com JSON
+POST http://localhost:40000/helloUserPost
+content-type: application/json
+
+{
+  "username": "John Doe"
+}
