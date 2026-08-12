@@ -1,0 +1,42 @@
+### SOMAR
+
+POST http://localhost:40000/somar HTTP/1.1
+content-type: application/json
+
+{
+    "num1": 4,
+    "num2": 2
+}
+
+
+### SUBTRAIR
+
+POST http://localhost:40000/subtrair HTTP/1.1
+content-type: application/json
+
+{
+    "num1": 4,
+    "num2": 2
+}
+
+
+### MULTIPLICAR
+
+POST http://localhost:40000/multiplicar HTTP/1.1
+content-type: application/json
+
+{
+    "num1": 4,
+    "num2": 2
+}
+
+
+### DIVIDIR
+
+POST http://localhost:40000/dividir HTTP/1.1
+content-type: application/json
+
+{
+    "num1": 4,
+    "num2": 2
+}
