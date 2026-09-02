@@ -1,0 +1,21 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="page-header d-flex flex-column flex-sm-row align-items-sm-end justify-content-between gap-3">
+  <div><p class="page-kicker mb-2">Registros acadêmicos</p><h1 class="display-6 mb-0">Alunos</h1></div>
+  <a class="btn btn-primary" href="/alunos/novo">Novo aluno</a>
+</header>
+<section class="data-card card border-0">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead><tr><th>Prontuário</th><th>Nome</th><th>Data de nascimento</th><th>Curso</th><th><span class="visually-hidden">Ações</span></th></tr></thead>
+      <tbody>
+        {% for aluno in alunos %}
+        <tr><td>{{ aluno.prontuario }}</td><td class="fw-semibold">{{ aluno.nome }}</td><td>{{ aluno.datanascimento }}</td><td>{{ aluno.descricao or '-' }}</td><td class="text-end"><a class="btn btn-sm btn-outline-primary" href="/alunos/{{ aluno.alunoid }}">Visualizar</a></td></tr>
+        {% else %}
+        <tr><td colspan="5" class="text-center text-secondary py-4">Nenhum aluno cadastrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

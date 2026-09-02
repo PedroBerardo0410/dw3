@@ -1,0 +1,11 @@
+{% extends "layout.njk" %}
+{% block content %}
+<section class="error-card card border-0 mx-auto">
+  <div class="card-body p-4 p-lg-5">
+    <p class="page-kicker mb-2">Erro</p>
+    <h1 class="h2">Não foi possível concluir a solicitação.</h1>
+    <p class="text-secondary mb-4">{{ message or 'Ocorreu um erro inesperado.' }}</p>
+    <a class="btn btn-primary" href="{% if showNavbar %}/home{% else %}/login{% endif %}">Voltar</a>
+  </div>
+</section>
+{% endblock %}

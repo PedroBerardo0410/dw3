@@ -1,0 +1,28 @@
+{% extends "layout.njk" %}
+{% block content %}
+{% set disabled = mode == 'view' %}
+<header class="page-header d-flex flex-column flex-sm-row align-items-sm-end justify-content-between gap-3">
+  <div><p class="page-kicker mb-2">Alunos</p><h1 class="display-6 mb-0">{{ 'Visualizar aluno' if mode == 'view' else title }}</h1></div>
+  <a class="btn btn-outline-primary" href="/alunos">Voltar à lista</a>
+</header>
+<section class="form-card card border-0">
+  <div class="card-body p-4 p-lg-5">
+    {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+    <form method="post" action="{% if mode == 'create' %}/alunos/novo{% else %}/alunos/{{ aluno.alunoid }}/editar{% endif %}">
+      <div class="row g-3">
+        <div class="col-md-4"><label class="form-label" for="prontuario">Prontuário</label><input class="form-control" id="prontuario" name="prontuario" value="{{ aluno.prontuario }}" {% if disabled %}disabled{% else %}required{% endif %}></div>
+        <div class="col-md-8"><label class="form-label" for="nome">Nome</label><input class="form-control" id="nome" name="nome" value="{{ aluno.nome }}" {% if disabled %}disabled{% else %}required{% endif %}></div>
+        <div class="col-md-8"><label class="form-label" for="endereco">Endereço</label><input class="form-control" id="endereco" name="endereco" value="{{ aluno.endereco }}" {% if disabled %}disabled{% endif %}></div>
+        <div class="col-md-4"><label class="form-label" for="rendafamiliar">Renda familiar</label><input class="form-control" id="rendafamiliar" name="rendafamiliar" type="number" min="0" step="0.01" value="{{ aluno.rendafamiliar }}" {% if disabled %}disabled{% endif %}></div>
+        <div class="col-md-6"><label class="form-label" for="datanascimento">Data de nascimento</label><input class="form-control" id="datanascimento" name="datanascimento" type="date" value="{{ aluno.datanascimento }}" {% if disabled %}disabled{% else %}required{% endif %}></div>
+        <div class="col-md-6"><label class="form-label" for="cursoid">Curso</label><select class="form-select" id="cursoid" name="cursoid" {% if disabled %}disabled{% else %}required{% endif %}><option value="">Selecione</option>{% for curso in cursos %}<option value="{{ curso.cursoid }}" {% if aluno.cursoid == curso.cursoid %}selected{% endif %}>{{ curso.codigo }} - {{ curso.descricao }}</option>{% endfor %}</select></div>
+      </div>
+      <div class="mt-4 d-flex flex-wrap gap-2">
+        {% if mode == 'create' or mode == 'edit' %}<button class="btn btn-primary" type="submit">Salvar</button>{% endif %}
+        {% if mode == 'view' %}<a class="btn btn-primary" href="/alunos/{{ aluno.alunoid }}/editar">Editar</a><button class="btn btn-outline-danger" type="submit" formaction="/alunos/{{ aluno.alunoid }}/excluir" formmethod="post" data-confirm="Remover este aluno?">Remover</button>{% endif %}
+      </div>
+    </form>
+  </div>
+</section>
+<script src="/apps/shared/confirm.js"></script>
+{% endblock %}

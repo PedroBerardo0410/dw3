@@ -1,0 +1,21 @@
+{% extends "layout.njk" %}
+{% block content %}
+<header class="page-header d-flex flex-column flex-sm-row align-items-sm-end justify-content-between gap-3">
+  <div><p class="page-kicker mb-2">Catálogo acadêmico</p><h1 class="display-6 mb-0">Cursos</h1></div>
+  <a class="btn btn-primary" href="/cursos/novo">Novo curso</a>
+</header>
+<section class="data-card card border-0">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead><tr><th>Código</th><th>Descrição</th><th>Status</th><th><span class="visually-hidden">Ações</span></th></tr></thead>
+      <tbody>
+        {% for curso in cursos %}
+        <tr><td><span class="code-tag">{{ curso.codigo }}</span></td><td class="fw-semibold">{{ curso.descricao }}</td><td><span class="status {% if curso.ativo %}status-on{% else %}status-off{% endif %}">{{ 'Ativo' if curso.ativo else 'Inativo' }}</span></td><td class="text-end"><a class="btn btn-sm btn-outline-primary" href="/cursos/{{ curso.cursoid }}">Visualizar</a></td></tr>
+        {% else %}
+        <tr><td colspan="4" class="text-center text-secondary py-4">Nenhum curso cadastrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

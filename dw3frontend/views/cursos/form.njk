@@ -1,0 +1,25 @@
+{% extends "layout.njk" %}
+{% block content %}
+{% set disabled = mode == 'view' %}
+<header class="page-header d-flex flex-column flex-sm-row align-items-sm-end justify-content-between gap-3">
+  <div><p class="page-kicker mb-2">Cursos</p><h1 class="display-6 mb-0">{{ 'Visualizar curso' if mode == 'view' else title }}</h1></div>
+  <a class="btn btn-outline-primary" href="/cursos">Voltar à lista</a>
+</header>
+<section class="form-card card border-0">
+  <div class="card-body p-4 p-lg-5">
+    {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+    <form method="post" action="{% if mode == 'create' %}/cursos/novo{% else %}/cursos/{{ curso.cursoid }}/editar{% endif %}">
+      <div class="row g-3">
+        <div class="col-md-4"><label class="form-label" for="codigo">Código</label><input class="form-control" id="codigo" name="codigo" value="{{ curso.codigo }}" {% if disabled %}disabled{% else %}required{% endif %}></div>
+        <div class="col-md-8"><label class="form-label" for="descricao">Descrição</label><input class="form-control" id="descricao" name="descricao" value="{{ curso.descricao }}" {% if disabled %}disabled{% else %}required{% endif %}></div>
+        <div class="col-12"><div class="form-check form-switch pt-2"><input class="form-check-input" id="ativo" name="ativo" type="checkbox" {% if curso.ativo %}checked{% endif %} {% if disabled %}disabled{% endif %}><label class="form-check-label" for="ativo">Curso ativo</label></div></div>
+      </div>
+      <div class="mt-4 d-flex flex-wrap gap-2">
+        {% if mode == 'create' or mode == 'edit' %}<button class="btn btn-primary" type="submit">Salvar</button>{% endif %}
+        {% if mode == 'view' %}<a class="btn btn-primary" href="/cursos/{{ curso.cursoid }}/editar">Editar</a><button class="btn btn-outline-danger" type="submit" formaction="/cursos/{{ curso.cursoid }}/excluir" formmethod="post" data-confirm="Remover este curso?">Remover</button>{% endif %}
+      </div>
+    </form>
+  </div>
+</section>
+<script src="/apps/shared/confirm.js"></script>
+{% endblock %}
